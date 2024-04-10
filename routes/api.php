@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 /*
-rOUTE::get('/test', function(){
-    return 'Estoy aqui';
+Route::get('/test', function(){
+    return [
+        "name" => "Admin",
+        "category" => "Developer"
+    ];
 });
 */
 
