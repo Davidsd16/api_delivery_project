@@ -14,6 +14,9 @@ use App\Http\Controllers\EstablismentsController;
     // Ruta para obtener la lista de establecimientos
     Route::get('/establishments', [EstablismentsController::class, 'index']);
 
+    // Define una ruta para mostrar un establecimiento específico.
+    Route::get('establishments/{id}', [EstablismentsController::class, 'show']);
+
     // Ruta para obtener los detalles del usuario autenticado
     Route::get('/user', function (Request $request) {
         return Auth::user();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EstablishmentResource;
 use App\Models\Establishment;
 use Illuminate\Http\Request;
 
@@ -23,4 +24,20 @@ class EstablismentsController extends Controller
         })
         ->paginate(10);
     }
+
+    /**
+     * Muestra el establecimiento correspondiente al ID proporcionado.
+     *
+     * @param  Establishment $id El establecimiento a mostrar.
+     * @return \Illuminate\Http\Response|\Illuminate\Database\Eloquent\Model El establecimiento encontrado.
+     */
+    public function show($id)
+    {
+        // Find the establishment by its ID
+        $establishment = Establishment::findOrFail($id);
+    
+        // Return the resource
+        return new EstablishmentResource($establishment);
+    }
+
 }
