@@ -9,19 +9,14 @@ use Illuminate\Http\Request;
 class EstablismentsController extends Controller
 {
     /**
-     * Display a listing of the establishments.
+     * Muestra una lista paginada de establecimientos, filtrados por categoría si se proporciona.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index()
     {
-
-        $establishments = (new Establishment)->newQuery();
-
-        if (request()->filled('category')) {
-            
-            $establishments->where('category', request('category'));
-        }
-        return $establishments->paginate(10);
+        return Establishment::when(request()->filled('category'), function($query){
+            $query->where('category', request('category'));
+        })->paginate(10);
     }
 }
