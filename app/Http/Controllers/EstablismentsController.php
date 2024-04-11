@@ -17,6 +17,10 @@ class EstablismentsController extends Controller
     {
         return Establishment::when(request()->filled('category'), function($query){
             $query->where('category', request('category'));
-        })->paginate(10);
+        })
+        ->when(request()->exists('popular'), function($query){
+            $query->orderBy('stars', 'DESC');
+        })
+        ->paginate(10);
     }
 }
