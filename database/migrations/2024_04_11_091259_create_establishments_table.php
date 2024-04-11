@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Crear la tabla 'establishments' con sus respectivos campos
         Schema::create('establishments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -27,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Eliminar la tabla 'establishments' si existe
         Schema::dropIfExists('establishments');
     }
 };
