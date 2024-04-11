@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Establishment;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * Fábrica para generar datos falsos para el modelo Establishment.
@@ -30,7 +31,11 @@ class EstablishmentFactory extends Factory
             // Genera una dirección de correo electrónico falsa
             'email' => $this->faker->safeEmail(),
             // Genera una ruta de logo falsa
-            'logo' => 'logos/' . Str::random() . '.png'
+            'logo' => 'logos/' . Str::random() . '.png',
+
+            'category' => Arr::random(['fast food', 'chinese food']),
+
+            'stars' => rand(100, 999),
         ];
     }
 }

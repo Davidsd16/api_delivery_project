@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\EstablismentsController;
 
-Route::middleware('auth:sanctum')->group(function (){
+ // Route::middleware('auth:sanctum')->group(function (){
 
     // Ruta para el inicio de sesión
     Route::post('login', [LoginController::class, 'login']);
@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function (){
             'message' => 'Order created',
         ];
     });
-
+/*
 });
+*/
 

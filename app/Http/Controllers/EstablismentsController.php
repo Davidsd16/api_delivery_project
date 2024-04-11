@@ -15,6 +15,13 @@ class EstablismentsController extends Controller
      */
     public function index()
     {
-        return Establishment::paginate(10);
+
+        $establishments = (new Establishment)->newQuery();
+
+        if (request()->filled('category')) {
+            
+            $establishments->where('category', request('category'));
+        }
+        return $establishments->paginate(10);
     }
 }
