@@ -4,10 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\EstablismentsController;
 
 
+Route::get('/establishments', [EstablismentsController::class, 'index']);
+/*
 // Define una ruta para crear órdenes
-Route::post('orders', function (){
+Route::middleware('auth:sanctum')->post('orders', function (){
     // Aborta la solicitud a menos que el usuario autenticado tenga permisos para crear órdenes
     abort_unless( Auth::user()->tokenCan('orders:create'), 403, "You dont't have premissions to perform this action.");
     // Devuelve un mensaje de éxito si se creó la orden
@@ -15,7 +18,7 @@ Route::post('orders', function (){
         'message' => 'Order created',
     ];
 });
-
+*/
 // Definición de ruta para el inicio de sesión
 Route::post('login', [LoginController::class, 'login']);
 
