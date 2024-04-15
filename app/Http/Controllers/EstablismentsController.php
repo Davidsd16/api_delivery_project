@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Establishment;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EstablishmentResource;
-use App\Models\Establishment;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EstablismentsController extends Controller
 {
@@ -16,13 +17,20 @@ class EstablismentsController extends Controller
      */
     public function index()
     {
-        return Establishment::when(request()->filled('category'), function($query){
-            $query->where('category', request('category'));
-        })
-        ->when(request()->exists('popular'), function($query){
-            $query->orderBy('stars', 'DESC');
-        })
-        ->paginate(10);
+        try {
+            $establishments =  Establishment::when(request()->filled('category'), function($query){
+                $query->where('category', request('category'));
+            })
+            ->when(request()->exists('popular'), function($query){
+                $query->orderBy('stars', 'DESC');
+            })
+            ->paginate(10);
+        } catch (ModelNotFoundException) {
+            // Devuelve un mensaje de error si la categoria del establecimiento no se encuentra
+            return response()->json(['error' => 'La categoria selecciona no se encuentra disponible'], 404);
+        }
+
+        return EstablishmentResource::collection($establishments);
     }
 
     /**
@@ -33,11 +41,16 @@ class EstablismentsController extends Controller
      */
     public function show($id)
     {
-        // Find the establishment by its ID
-        $establishment = Establishment::findOrFail($id);
-    
-        // Return the resource
-        return new EstablishmentResource($establishment);
+        try {
+            // Busca el establecimiento por su ID
+            $establecimiento = Establishment::findOrFail($id);
+            
+            // Devuelve el recurso
+            return new EstablishmentResource($establecimiento);
+        } catch (ModelNotFoundException) {
+            // Devuelve un mensaje de error si el establecimiento no se encuentra
+            return response()->json(['error' => 'El establecimiento no se pudo encontrar.'], 404);
+        }
     }
 
 }
