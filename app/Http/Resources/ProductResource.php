@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
+            'details' => $this->when($request->routeIs('products:show'), $this->details),
             'establishment_id' => $this->establishmnet_id
         ];
     }

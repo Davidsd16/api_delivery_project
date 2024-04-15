@@ -18,8 +18,7 @@ Route::get('/establishments', [EstablismentsController::class, 'index']);
 // Define una ruta para mostrar un establecimiento específico.
 Route::get('establishments/{id}', [EstablismentsController::class, 'show']);
 
-Route::get('products/{product}', [ProductsController::class, 'show']);
-
+Route::get('products/{product}', [ProductsController::class, 'show'])->name('products:show');
 
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('/user', function (Request $request) {
