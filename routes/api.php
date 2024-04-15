@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EstablismentsController;
 
 
@@ -16,6 +17,9 @@ Route::get('/establishments', [EstablismentsController::class, 'index']);
 
 // Define una ruta para mostrar un establecimiento específico.
 Route::get('establishments/{id}', [EstablismentsController::class, 'show']);
+
+Route::get('products/{product}', [ProductsController::class, 'show']);
+
 
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('/user', function (Request $request) {
