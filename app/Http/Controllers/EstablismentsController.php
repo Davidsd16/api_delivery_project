@@ -24,6 +24,7 @@ class EstablismentsController extends Controller
             ->when(request()->exists('popular'), function($query){
                 $query->orderBy('stars', 'DESC');
             })
+            ->with('products')
             ->paginate(10);
         } catch (ModelNotFoundException) {
             // Devuelve un mensaje de error si la categoria del establecimiento no se encuentra
@@ -43,10 +44,12 @@ class EstablismentsController extends Controller
     {
         try {
             // Busca el establecimiento por su ID
-            $establecimiento = Establishment::findOrFail($id);
+            $establishment = Establishment::findOrFail($id);
             
+            $establishment->load('products');
+
             // Devuelve el recurso
-            return new EstablishmentResource($establecimiento);
+            return new EstablishmentResource($establishment);
         } catch (ModelNotFoundException) {
             // Devuelve un mensaje de error si el establecimiento no se encuentra
             return response()->json(['error' => 'El establecimiento no se pudo encontrar.'], 404);

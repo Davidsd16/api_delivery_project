@@ -21,7 +21,8 @@ class EstablishmentResource extends JsonResource
             'phone' => $this->phone,  // Obtiene el número de teléfono del establecimiento.
             'logo' => $this->logo,  // Obtiene el logo del establecimiento.
             'category' => $this->category,  // Obtiene la categoría del establecimiento.
-            'stars' => $this->stars  // Obtiene la calificación del establecimiento.
+            'stars' => $this->stars,  // Obtiene la calificación del establecimiento.
+            'products' => ProductResource::collection($this->whenLoaded('products'))
         ];
     }
 }
