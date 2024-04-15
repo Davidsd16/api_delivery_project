@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Establishment extends Model
 {
     use HasFactory;
+
+    // Relación: Un establecimiento tiene muchos productos
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
+
