@@ -23,9 +23,9 @@ return new class extends Migration
             $table->timestamps(); // Campos de fecha de creación y actualización
     
             // Definir la restricción de clave foránea para la relación con el establecimiento
-            $table->foreignId('establishment_id')
-                ->reference('id') // Hace referencia al campo 'id' de la tabla 'establishments'
-                ->on('establismnet') // Nombre incorrecto de la tabla 'establishment'
+            $table->foreign('establishment_id') // Utiliza foreign en lugar de foreignId
+                ->references('id') // Hace referencia al campo 'id' de la tabla 'establishments'
+                ->on('establishments') // Nombre correcto de la tabla 'establishments'
                 ->onUpdate('cascade') // Actualizar en cascada si cambia el ID del establecimiento
                 ->onDelete('cascade'); // Eliminar en cascada si se elimina el establecimiento
         });
