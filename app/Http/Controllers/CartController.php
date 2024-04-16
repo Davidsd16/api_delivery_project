@@ -26,7 +26,14 @@ class CartController extends Controller
             'weight' => 0, // Peso del producto (actualmente no utilizado)
         ]);
         
-        // Almacenar el contenido del carrito asociado al usuario actual por su correo electrónico
-        Cart::store(Auth::user()->email);
+        // Verificar si hay un usuario autenticado antes de almacenar el carrito
+        if (Auth::check()) {
+            // Almacenar el contenido del carrito asociado al usuario actual por su correo electrónico
+            Cart::store(Auth::user()->email);
+        }
+
+        // Devolver el contenido actual del carrito
+        return Cart::content();
     }
+    
 }
