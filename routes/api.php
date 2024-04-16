@@ -26,9 +26,11 @@ Route::get('products/{product}', [ProductsController::class, 'show'])->name('pro
 // Ruta para agregar un producto al carrito.
 Route::post('cart/add-product/{product}', [CartController::class, 'store']);
 
+// Ruta para obtener y mostrar el contenido del carrito
 Route::get('cart', [CartController::class, 'index']);
 
-
+// Ruta para actualizar un producto en el carrito mediante su identificador de fila
+Route::put('cart/update/{rowId}', [CartController::class, 'update']);
 
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('/user', function (Request $request) {
