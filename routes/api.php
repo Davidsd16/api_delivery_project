@@ -26,6 +26,9 @@ Route::get('products/{product}', [ProductsController::class, 'show'])->name('pro
 // Ruta para agregar un producto al carrito.
 Route::post('cart/add-product/{product}', [CartController::class, 'store']);
 
+Route::get('cart', [CartController::class, 'index']);
+
+
 
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('/user', function (Request $request) {

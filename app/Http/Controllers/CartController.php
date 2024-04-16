@@ -17,6 +17,9 @@ class CartController extends Controller
      */
     public function store(Product $product)
     {
+
+        Cart::restore('name');
+
         // Agregar el producto al carrito de compras con los detalles proporcionados
         Cart::add([
             'id' => $product->id, // Identificador único del producto
@@ -25,15 +28,27 @@ class CartController extends Controller
             'price' => $product->price, // Precio del producto
             'weight' => 0, // Peso del producto (actualmente no utilizado)
         ]);
-        
-        // Verificar si hay un usuario autenticado antes de almacenar el carrito
-        if (Auth::check()) {
-            // Almacenar el contenido del carrito asociado al usuario actual por su correo electrónico
-            Cart::store(Auth::user()->email);
-        }
 
-        // Devolver el contenido actual del carrito
+        Cart::store('name');
+
         return Cart::content();
     }
-    
+
+    /**
+     * Muestra el contenido del carrito.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        // Restaura el carrito previamente almacenado bajo el nombre 'name'
+        Cart::restore('name');
+
+        // Almacena el contenido del carrito actual bajo el nombre 'name'
+        Cart::store('name');
+
+        // Devuelve el contenido actual del carrito
+        return Cart::content();
+    }
+
 }
