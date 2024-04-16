@@ -32,6 +32,9 @@ Route::get('cart', [CartController::class, 'index']);
 // Ruta para actualizar un producto en el carrito mediante su identificador de fila
 Route::put('cart/update/{rowId}', [CartController::class, 'update']);
 
+// Ruta para eliminar un producto del carrito.
+Route::delete('cart/delete/{rowId}', [CartController::class, 'destroy']);
+
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('/user', function (Request $request) {
     return Auth::user();

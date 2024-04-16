@@ -74,5 +74,25 @@ class CartController extends Controller
         return Cart::content();
     }
 
+    /**
+     * Elimina un producto del carrito.
+     *
+     * @param  string  $rowId El ID de fila del producto a eliminar.
+     * @return \Illuminate\Support\Collection
+     */
+    public function destroy($rowId)
+    {
+        // Restaura el carrito previamente almacenado bajo el nombre 'name'
+        Cart::restore('name');
+
+        // Elimina el producto del carrito
+        Cart::remove($rowId);
+
+        // Almacena el contenido del carrito actual bajo el nombre 'name'
+        Cart::store('name');
+
+        // Devuelve el contenido actualizado del carrito
+        return Cart::content();
+    }
 
 }
