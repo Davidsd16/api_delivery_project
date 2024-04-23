@@ -3,12 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EstablismentsController;
-use App\Http\Controllers\CartController;
-
-
 
 
 // Ruta para el inicio de sesión
@@ -41,7 +40,9 @@ Route::get('/user', function (Request $request) {
 });
 
 // Ruta para crear órdenes
-Route::post('orders', function (){
+Route::post('orders',[OrdersController::class, 'store']);
+
+/*
     // Aborta la solicitud a menos que el usuario autenticado tenga permisos para crear órdenes
  //   abort_unless( Auth::user()->tokenCan('orders:create'), 403, "You don't have permissions to perform this action.");
     // Devuelve un mensaje de éxito si se creó la orden
@@ -49,5 +50,5 @@ Route::post('orders', function (){
         'message' => 'Order created',
     ];
 });
-
+*/
 

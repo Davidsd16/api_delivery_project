@@ -87,7 +87,7 @@ class CartController extends Controller
 
         // Elimina el producto del carrito
         Cart::remove($rowId);
-
+        
         // Almacena el contenido del carrito actual bajo el nombre 'name'
         Cart::store('name');
 
