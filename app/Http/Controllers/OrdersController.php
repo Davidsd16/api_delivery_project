@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User; // Importa el modelo User
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart; // Importar la fachada Cart de la biblioteca de carrito de compras
 use Gloudemans\Shoppingcart\CartItem; // Importar la clase CartItem
 
 class OrdersController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
+        // Obtener el usuario actual
+        $user = $request->user();
+
+        // Verificar si el usuario existe
+        if (!$user) {
+            // Si el usuario no existe, devolver un error
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        // Obtener el ID de usuario
+        $userId = $user->id;
+
         // Restaura el carrito previamente almacenado bajo el nombre 'name'
-        Cart::restore('name');
+        Cart::restore($userId);
 
         $content = Cart::content()->map(function (CartItem $cartItem) {
             return [
@@ -33,7 +45,7 @@ class OrdersController extends Controller
 
         // Crea una nueva orden y la guarda en la base de datos
         $order = Order::create([
-           // 'user_id' => Auth::id(),
+            'user_id' => $userId, // Asigna el ID de usuario
             'content' => $contentArray,
         ]);
 
