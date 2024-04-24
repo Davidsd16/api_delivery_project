@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\User; // Importa el modelo User
 use Illuminate\Http\Request;
@@ -49,6 +50,6 @@ class OrdersController extends Controller
             'content' => $contentArray,
         ]);
 
-        return $order;
+        return new OrderResource($order);
     }
 }
