@@ -40,11 +40,16 @@ Route::get('user', [UsersController::class, 'index']);
 
 
 // Ruta para crear órdenes
-Route::post('orders',[OrdersController::class, 'store']);
+Route::post('orders', [OrdersController::class, 'store']);
 
-Route::middleware('auth:sanctum')->get('/', function () {
+// Ruta para obtener órdenes del usuario actual
+Route::get('orders', [OrdersController::class, 'index']);
+
+// Ruta protegida para obtener información del usuario autenticado
+Route::middleware('auth:sanctum')->get('/', function ($request) {
     return $request->user();
 });
+
 /*
     // Aborta la solicitud a menos que el usuario autenticado tenga permisos para crear órdenes
     abort_unless( Auth::user()->tokenCan('orders:create'), 403, "You don't have permissions to perform this action.");

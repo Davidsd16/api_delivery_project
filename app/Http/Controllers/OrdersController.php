@@ -8,9 +8,20 @@ use App\Models\User; // Importa el modelo User
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart; // Importar la fachada Cart de la biblioteca de carrito de compras
 use Gloudemans\Shoppingcart\CartItem; // Importar la clase CartItem
+use Illuminate\Support\Facades\Auth;
 
 class OrdersController extends Controller
 {
+
+    public function index(){
+        // Recupera las órdenes del usuario actual paginadas
+        $orders = Order::where('user_id', Auth::id())
+            ->paginate(10);
+    
+        // Devuelve una colección de recursos de órdenes paginadas
+        return OrderResource::collection($orders);
+    }
+    
     public function store(Request $request)
     {
         // Obtener el usuario actual
