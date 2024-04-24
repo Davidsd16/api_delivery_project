@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +9,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\EstablismentsController;
+use App\Http\Controllers\DeliveryAvailabilityController;
+
 
 // Ruta para el inicio de sesión
 Route::post('login', [LoginController::class, 'login']);
@@ -38,7 +39,6 @@ Route::delete('cart/delete/{rowId}', [CartController::class, 'destroy']);
 // Ruta para obtener los detalles del usuario autenticado
 Route::get('user', [UsersController::class, 'index']);
 
-
 // Ruta para crear órdenes
 Route::post('orders', [OrdersController::class, 'store']);
 
@@ -49,6 +49,14 @@ Route::get('orders', [OrdersController::class, 'index']);
 Route::middleware('auth:sanctum')->get('/', function ($request) {
     return $request->user();
 });
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// Nuevas rutas para Repartidores Delivery
+
+Route::put('/availability', [DeliveryAvailabilityController::class, 'update']);
+
 
 /*
     // Aborta la solicitud a menos que el usuario autenticado tenga permisos para crear órdenes

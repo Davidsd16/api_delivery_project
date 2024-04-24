@@ -20,6 +20,14 @@ class AbilitiesResolver {
             // Si es un cliente, resolver habilidades específicas para clientes
             return static::resolveForClient($device);
         }
+
+        if ($user->role == 'delivery') {
+            // Si es un cliente, resolver habilidades específicas para clientes
+            return static::resolveForDelivery($device);
+        }
+
+        return [];
+
     }
 
     /**
@@ -40,4 +48,12 @@ class AbilitiesResolver {
             ]
         };
     }
+
+    public static function resolveForDelivery($device){
+        return[
+            'availability:update',
+                
+        ];       
+    }
+
 }
