@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,6 +33,6 @@ class DeliveryAvailabilityController extends Controller
         $user->save();
 
         // Devolver el usuario actualizado con su nueva configuración de disponibilidad
-        return $user;
+        return new UserResource($user);
     }
 }
