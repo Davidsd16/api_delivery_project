@@ -15,22 +15,18 @@ class DeliveryAvailabilityController extends Controller
         */
         
         // Validar la solicitud entrante para asegurar que el campo 'status' esté presente y sea un booleano
-
+        // Esto garantiza que la solicitud contenga el campo 'status' y que su valor sea un booleano válido
         request()->validate([
             'status' => 'required|boolean',
         ]);
 
-        // Obtener el usuario autenticado
+        
         $user = Auth::user();
 
-        // Obtener la configuración del usuario
-        $config = $user->config;
-
-        // Actualizar la disponibilidad en la configuración del usuario con el valor proporcionado en la solicitud
-        $config['availability'] = request('status');
-
-        // Asignar la configuración actualizada al usuario
-        $user->config = $config;
+        // Actualizar la configuración del usuario con el nuevo estado de disponibilidad recibido en la solicitud
+        $user->config = array_merge($user->config, [
+            'availability' => (boolean) request('status'),
+        ]);
 
         // Guardar los cambios en la base de datos
         $user->save();
