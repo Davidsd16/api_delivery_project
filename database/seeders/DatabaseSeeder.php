@@ -23,6 +23,18 @@ class DatabaseSeeder extends Seeder
             'role' => 'client',
         ]);
 
+
+        User::factory()->create([
+            'name' => 'Luis',
+            'email' => 'luis@example.com',
+            'password' => bcrypt('12345678'),
+            'role' => 'delivery',
+            'config' => [
+                'availability' => false
+            ],
+        ]);
+
+        
         // Llama al seeder EstablishmentSeeder para poblar la tabla establishments
         $this->call(EstablishmentSeeder::class);
     }
